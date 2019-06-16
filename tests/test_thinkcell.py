@@ -24,7 +24,7 @@ class TestThinkcell(object):
     def test_verify_template_3(self):
         template_name = "example.pptx"
         assert Thinkcell.verify_template(template_name) == template_name
-    
+
     def test_add_page(self):
         tc = Thinkcell()
         template = "example.pptx"
