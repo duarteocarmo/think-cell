@@ -1,0 +1,56 @@
+[
+	{
+		"template" : "template.pptx",
+		"data": [
+			{
+				"name": "Title",
+				"table": [[{"number":3.1415926}]]
+			},
+			{
+				"name": "Chart1",
+				"table": [
+					[null, {"string":"Alpha"},{"string":"Bravo"},{"string":"Charlie"}],
+					[],
+					[{"string":"Delta"},{"number":1},{"number":2},{"number":3}],
+					[{"string":"Echo"},{"number":4},{"number":5},{"number":6}]
+				]
+			},
+			{
+				"name": "Chart2",
+				"table": [
+					[null, {"date":"2016-09-03"},{"date":"2016-09-04"},{"date":"2016-09-05"}],
+					[],
+					[{"string":"Foxtrot"},{"number":7},{"number":8},{"number":9}],
+					[{"string":"Gulf"},{"number":10},{"number":11},{"number":12}]
+				]
+			}
+		]
+	},
+	{
+		"template" : "template.pptx",
+		"data": [
+			{
+				"name": "Title",
+				"table": [[{"date":"2016-09-03"}]]
+			},
+			{
+				"name": "Chart1",
+				"table": [
+					[null, {"string":"Hotel"},{"string":"India"},{"string":"Juliett"}],
+					[],
+					[{"string":"Kilo"},{"number":1},{"number":2},{"number":3}],
+					[{"string":"Lima"},{"number":4},{"number":5},{"number":6}]
+				]
+			},
+			{
+				"name": "Chart2",
+				"table": [
+					[null, {"date":"2016-09-03"},{"date":"2016-09-04"},{"date":"2016-09-05"}],
+					[],
+					[{"string":"Mike"},{"number":7},{"number":8},{"number":9}],
+					[{"string":"November"},{"number":10},{"number":11},{"number":12}]
+				]
+			}
+		]
+	}
+]
