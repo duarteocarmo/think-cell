@@ -1,0 +1,1 @@
+[{"template": "simple-template.pptx", "data": [{"name": "Chart1", "table": [[null, {"string": "Ads"}, {"string": "iPhones"}, {"string": "Other"}], [], [{"string": "Apple"}, {"number": 1}, {"number": 11}, {"number": 14}], [{"string": "Google"}, {"number": 8}, {"number": 2}, {"number": 15}], [{"string": "Microsoft"}, {"number": 1}, {"number": 2}, {"number": 12}]]}]}]
