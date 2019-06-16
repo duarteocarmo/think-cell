@@ -85,7 +85,6 @@ class Thinkcell(object):
                 page["data"].append(chart_dict)
 
     def save_ppttc(self, filename):
-        print(self.charts)
         if not isinstance(filename, str):
             raise ValueError(
                 f"A filename is normally a string, yours is not."
@@ -103,5 +102,5 @@ class Thinkcell(object):
 
         else:
             with open(filename, "w") as outfile:
-                json.dump([self.charts], outfile)
+                json.dump(self.charts, outfile)
                 return True
