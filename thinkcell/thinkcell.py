@@ -1,56 +1,107 @@
 import json
+import warnings
+from datetime import datetime
+from pprint import pprint
+
+# TODO handle duplicate template names
 
 
 class Thinkcell(object):
     def __init__(self):
         self.charts = []
-        #self.template_name = self.verify_template(template_name)
-        #self.thinkcell_obj = dict()
-        #self.thinkcell_obj["template"] = template_name
-        #self.thinkcell_obj["data"] = []
-        #self.categories = [None]
 
     def __str__(self):
-        return str(self.thinkcell_obj)
+        return str(self.charts)
 
     @staticmethod
     def verify_template(template_name):
         if not isinstance(template_name, str):
-            raise TypeError(f"'{template_name}' is not a valid template file.")
+            raise TypeError(
+                f"'{template_name}' is not a valid template file."
+            )
 
         if not template_name.endswith(".pptx"):
-            raise TypeError(f"'{template_name}' is not a valid Powerpoint file.")
+            raise TypeError(
+                f"'{template_name}' is not a valid Powerpoint file."
+            )
 
         else:
             return template_name
 
-    def add_chart(self, categories, rows):
+    @staticmethod
+    def transform_input(data_element):
 
-        
+        if isinstance(data_element, datetime):
+            return {"date": data_element.strftime("%Y-%m-%d")}
 
-    
+        if isinstance(data_element, str):
+            return {"string": data_element}
 
-    
+        if isinstance(data_element, (int, float)):
+            return {"number": data_element}
 
+        else:
+            raise ValueError(
+                f"{data_element} of type {type(data_element)} is not acceptable."
+            )
 
-template_name = "asdsa.pptx"
+    def add_template(self, template_name):
+        self.verify_template(template_name)
+        self.charts.append({"template": template_name, "data": []})
 
-a = Thinkcell(template_name=template_name)
-print(a)
+    def add_chart(self, template_name, chart_name, categories, data):
+        available_templates = [page["template"] for page in self.charts]
 
-# def add_chart(self, category_name, dataframe, chart_name, display_name):
-#    names = dataframe.index.values
-#    values = dataframe[category_name].values
-#
-#    header = [None] + [{"string": str(name).replace("(", "").replace("]", "").replace(", ", "-")} for name in names]
-#    numbers = [{"string": display_name}] + [{"number": value} for value in values]
-#
-#    chart = dict()
-#    chart["name"] = chart_name
-#    chart["table"] = [header, [], numbers]
-#
-#    self.thinkcell_obj["data"].append(chart)
-#
-# def save_ppttc(self, filename):
-#    with open(filename, "w") as outfile:
-#        json.dump([self.thinkcell_obj], outfile)
+        if template_name not in available_templates:
+            raise ValueError(
+                f"{template_name} does not exist, please create one first."
+            )
+
+        if not isinstance(chart_name, str):
+            warnings.warn(
+                f"Your chart name is not a string, we will convert it into one. But wanted to make sure you were aware."
+            )
+
+        for data_list in data:
+            if len(data_list) != len(categories) + 1:
+                raise ValueError(
+                    f"Your categories should be the equal to the length of your data lists - 1. Your data element {data_list} is of size {len(data_list)} but should be of size {len(categories) + 1}."
+                )
+
+        chart_dict = {}
+        chart_dict["name"] = str(chart_name)
+        chart_categories = [None] + [
+            self.transform_input(element) for element in categories
+        ]
+        chart_dict["table"] = [chart_categories, []]
+
+        for data_list in data:
+            chart_dict["table"].append(
+                [self.transform_input(el) for el in data_list]
+            )
+
+        for page in self.charts:
+            if page["template"] == template_name:
+                page["data"].append(chart_dict)
+
+    def save_ppttc(self, filename):
+        print(self.charts)
+        if not isinstance(filename, str):
+            raise ValueError(
+                f"A filename is normally a string, yours is not."
+            )
+
+        if not filename.endswith(".ppttc"):
+            raise ValueError(
+                f"You want to save your file as a '.ppttc' file, not a '{filename}'. Visit https://www.think-cell.com/en/support/manual/jsondataautomation.shtml for more information."
+            )
+
+        if not self.charts:
+            raise ValueError(
+                f"Please add data before saving to a template file by using 'add_template' and then 'add_chart'."
+            )
+
+        else:
+            with open(filename, "w") as outfile:
+                json.dump([self.charts], outfile)
+                return True
