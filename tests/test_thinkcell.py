@@ -1,6 +1,7 @@
 import pytest
 from thinkcell import Thinkcell
 from datetime import datetime
+import os
 
 
 class TestThinkcell(object):
@@ -126,3 +127,5 @@ class TestThinkcell(object):
             data=[["today", 1, 2], ["tomorrow", 3, 4]],
         )
         assert tc.save_ppttc(filename="test.ppttc") == True
+        os.remove("test.ppttc")
+
