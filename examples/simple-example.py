@@ -3,6 +3,7 @@ from thinkcell import Thinkcell
 template_name = "simple-template.pptx"
 categories = ["Ads", "iPhones", "Other"]
 chart_name = "Chart1"
+filename = "simple-example.ppttc"
 
 data = [["Apple", 1, 11, 14], ["Google", 8, 2, 15], ["Microsoft", 1, 2, 12]]
 
@@ -15,4 +16,4 @@ tc.add_chart(
     data=data,
 )
 
-tc.save_ppttc()
+tc.save_ppttc(filename=filename)
