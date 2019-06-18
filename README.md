@@ -11,6 +11,11 @@ thinkcell is available on PyPi.
  $ pip install thinkcell
  ```
 
+### Tutorial and Usage
+
+Let us say you have generated a template `template.pptx` according to think-cell's automation guidelines. 
+
+
 
 To do:
 - [x] Make complex examples
