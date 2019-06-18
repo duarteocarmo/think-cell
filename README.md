@@ -1,4 +1,4 @@
-# thinkcell <img src="https://github.com/duarteocarmo/think-cell/blob/master/assets/logo.png" width="30">
+# thinkcell <img src="https://raw.githubusercontent.com/duarteocarmo/think-cell/master/assets/logo.png" width="30">
 [![Build Status](https://travis-ci.org/duarteocarmo/think-cell.svg?branch=master)](https://travis-ci.org/duarteocarmo/think-cell) [![GitHub license](https://img.shields.io/github/license/duarteocarmo/think-cell.svg)](https://github.com/duarteocarmo/think-cell/blob/master/LICENSE) [![Coverage Status](https://coveralls.io/repos/github/duarteocarmo/think-cell/badge.svg?branch=master)](https://coveralls.io/github/duarteocarmo/think-cell?branch=master)
 
 thinkcell is a simple library that helps you automatically generate presentations in an quick and simple way. 
@@ -17,9 +17,7 @@ thinkcell is available on PyPi.
 
 Let us say you have generated a template `template.pptx` according to [think-cell's automation guidelines](https://www.think-cell.com/en/support/manual/jsondataautomation.shtml) called `simple-template.pptx` with the following chart called `Chart1`: 
 
-<center>
-<img src="https://github.com/duarteocarmo/think-cell/blob/master/assets/example.png" width="500">
-</center>
+<img src="https://raw.githubusercontent.com/duarteocarmo/think-cell/master/assets/example.png" width="500">
 
 The thinkcell library helps you generate a `.pptc` file so that you can generate presentations based on that template using python:
 
@@ -69,12 +67,3 @@ Make sure the tests run:
  ```
 
 Then you can create a branch and submit a pull request. 
-
-
-### Progress and Todos
-
-To do:
-- [x] Make complex examples
-- [x] Finish readme
-- [x] Continuous integration
-- [ ] Pypi
