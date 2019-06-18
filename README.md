@@ -1,4 +1,4 @@
-# think-cell <img src="assets/logo.png" width="48">
+# think-cell <img src="assets/logo.png" width="30">
 thinkcell is a library that helps you automatically generate presentations in an quick and simple way. 
 
 In order to use it you will need a valid and working [think-cell license and installation](https://www.think-cell.com/en/). 
