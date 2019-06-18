@@ -76,5 +76,5 @@ Then you can create a branch and submit a pull request.
 To do:
 - [x] Make complex examples
 - [x] Finish readme
-- [ ] Continuous integration
+- [x] Continuous integration
 - [ ] Pypi
