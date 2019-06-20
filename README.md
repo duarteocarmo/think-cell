@@ -1,7 +1,7 @@
 # thinkcell <img src="https://raw.githubusercontent.com/duarteocarmo/think-cell/master/assets/logo.png" width="30">
 [![Build Status](https://travis-ci.org/duarteocarmo/think-cell.svg?branch=master)](https://travis-ci.org/duarteocarmo/think-cell) [![Coverage Status](https://coveralls.io/repos/github/duarteocarmo/think-cell/badge.svg?branch=master&service=github)](https://coveralls.io/github/duarteocarmo/think-cell?branch=master) [![PyPI version shields.io](https://img.shields.io/pypi/v/thinkcell.svg)](https://pypi.python.org/pypi/thinkcell/) [![Supported Python versions](https://img.shields.io/pypi/pyversions/thinkcell.svg)](https://pypi.org/project/thinkcell/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black) [![PyPI downloads](https://img.shields.io/pypi/dm/thinkcell.svg)](https://pypistats.org/packages/thinkcell) [![GitHub license](https://img.shields.io/github/license/duarteocarmo/think-cell.svg)](https://github.com/duarteocarmo/think-cell/blob/master/LICENSE) 
 
-thinkcell is a simple python library that helps you automatically generate presentations in a quick and automated way. 
+thinkcell is a simple python library that helps you generate presentations in a quick and automated way. 
 
 In order to use it you will need a valid and working [think-cell license and installation](https://www.think-cell.com/en/). 
 
