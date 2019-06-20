@@ -49,6 +49,18 @@ class TestThinkcell(object):
         tc.add_template(template)
         assert tc.charts == [{"template": template, "data": []}]
 
+    def test_add_chart_warning(self):
+        tc = Thinkcell()
+        template_name = "template.pptx"
+        tc.add_template(template_name)
+        with pytest.warns(UserWarning) as record:
+            tc.add_chart(
+                template_name=template_name,
+                chart_name=234,
+                categories=["Alpha", "bravo"],
+                data=[[3, 4, datetime(2012, 9, 16, 0, 0)], [2, "adokf", 6]],
+            )
+
     def test_add_chart_bad_template(self):
         tc = Thinkcell()
         template = "example.pptx"
