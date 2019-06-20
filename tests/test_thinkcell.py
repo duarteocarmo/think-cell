@@ -9,9 +9,9 @@ class TestThinkcell(object):
         tc = Thinkcell()
         assert tc.charts == []
 
-    def test_str(self):
+    def test_str_all(self):
         tc = Thinkcell()
-        assert hasattr(tc, "__str__") is True
+        assert str(tc) == "[]"
 
     @pytest.mark.parametrize(
         "test_input, expected",
@@ -24,6 +24,10 @@ class TestThinkcell(object):
     )
     def test_transform_input(self, test_input, expected):
         assert Thinkcell.transform_input(test_input) == expected
+
+    def test_transform_input_bad(self):
+        with pytest.raises(ValueError) as e_info:
+            Thinkcell.transform_input([3, 4])
 
     def test_verify_template_1(self):
         template_name = "not a file name"
@@ -128,4 +132,3 @@ class TestThinkcell(object):
         )
         assert tc.save_ppttc(filename="test.ppttc") == True
         os.remove("test.ppttc")
-
