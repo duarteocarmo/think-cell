@@ -74,10 +74,12 @@ class TestThinkcell(object):
 
     def test_add_chart_bad_dimensions(self):
         tc = Thinkcell()
-        template = "example.pptx"
+        template_name = "example.pptx"
+        tc.add_template(template_name)
         with pytest.raises(ValueError) as e_info:
+
             tc.add_chart(
-                template_name="example2.pptx",
+                template_name=template_name,
                 chart_name="Cool Name bro",
                 categories=["Alpha", "bravo"],
                 data=[[3, 4, datetime(2012, 9, 16, 0, 0)], [2, "adokf"]],
