@@ -3,8 +3,6 @@ import warnings
 from datetime import datetime
 from pprint import pprint
 
-# TODO handle duplicate template names
-
 
 class Thinkcell(object):
     """The Thinkcell object base class. 

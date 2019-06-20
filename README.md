@@ -67,3 +67,9 @@ Make sure the tests run:
  ```
 
 Then you can create a branch and submit a pull request. 
+
+### To-dos
+- [x] Create docstrings.
+- [ ] Handle duplicate template names.
+- [ ] Produce documentation.
+- [ ] Pandas dataframe support.
