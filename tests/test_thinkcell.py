@@ -135,6 +135,11 @@ class TestThinkcell(object):
         with pytest.raises(output) as e_info:
             tc.save_ppttc(filename=input)
 
+    def test_save_pptc(self):
+        tc = Thinkcell()
+        with pytest.raises(ValueError) as e_info:
+            tc.save_ppttc("test.ppttc")
+
     def test_save_ppttc(self):
         tc = Thinkcell()
         tc.add_template("example.pptx")
