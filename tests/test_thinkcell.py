@@ -9,9 +9,9 @@ class TestThinkcell(object):
         tc = Thinkcell()
         assert tc.charts == []
 
-    def test_str(self):
+    def test_str_all(self):
         tc = Thinkcell()
-        assert hasattr(tc, "__str__") is True
+        assert str(tc) == "[]"
 
     @pytest.mark.parametrize(
         "test_input, expected",
@@ -24,6 +24,10 @@ class TestThinkcell(object):
     )
     def test_transform_input(self, test_input, expected):
         assert Thinkcell.transform_input(test_input) == expected
+
+    def test_transform_input_bad(self):
+        with pytest.raises(ValueError) as e_info:
+            Thinkcell.transform_input([3, 4])
 
     def test_verify_template_1(self):
         template_name = "not a file name"
@@ -45,6 +49,18 @@ class TestThinkcell(object):
         tc.add_template(template)
         assert tc.charts == [{"template": template, "data": []}]
 
+    def test_add_chart_warning(self):
+        tc = Thinkcell()
+        template_name = "template.pptx"
+        tc.add_template(template_name)
+        with pytest.warns(UserWarning) as record:
+            tc.add_chart(
+                template_name=template_name,
+                chart_name=234,
+                categories=["Alpha", "bravo"],
+                data=[[3, 4, datetime(2012, 9, 16, 0, 0)], [2, "adokf", 6]],
+            )
+
     def test_add_chart_bad_template(self):
         tc = Thinkcell()
         template = "example.pptx"
@@ -58,10 +74,12 @@ class TestThinkcell(object):
 
     def test_add_chart_bad_dimensions(self):
         tc = Thinkcell()
-        template = "example.pptx"
+        template_name = "example.pptx"
+        tc.add_template(template_name)
         with pytest.raises(ValueError) as e_info:
+
             tc.add_chart(
-                template_name="example2.pptx",
+                template_name=template_name,
                 chart_name="Cool Name bro",
                 categories=["Alpha", "bravo"],
                 data=[[3, 4, datetime(2012, 9, 16, 0, 0)], [2, "adokf"]],
@@ -117,6 +135,11 @@ class TestThinkcell(object):
         with pytest.raises(output) as e_info:
             tc.save_ppttc(filename=input)
 
+    def test_save_pptc(self):
+        tc = Thinkcell()
+        with pytest.raises(ValueError) as e_info:
+            tc.save_ppttc("test.ppttc")
+
     def test_save_ppttc(self):
         tc = Thinkcell()
         tc.add_template("example.pptx")
@@ -128,4 +151,3 @@ class TestThinkcell(object):
         )
         assert tc.save_ppttc(filename="test.ppttc") == True
         os.remove("test.ppttc")
-

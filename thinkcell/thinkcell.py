@@ -3,22 +3,50 @@ import warnings
 from datetime import datetime
 from pprint import pprint
 
-# TODO handle duplicate template names
-
 
 class Thinkcell(object):
+    """The Thinkcell object base class. 
+    
+    Attributes
+    ----------
+    charts : list
+        A list of that contains a dictionnary for every template added. That dictionnary 
+        contains two objects, `template` and `data`.
+        The `data` object contains itself two keys: `name` (the name of the chart) and 
+        `table` (the actual data). 
+    """
+
     def __init__(self):
+        """Initializes the Thinkcell object. Takes no arguments.
+        """
         self.charts = []
 
     def __str__(self):
+        """Prints the data inside of the Thinkcell object.
+        """
         return str(self.charts)
 
     @staticmethod
     def verify_template(template_name):
+        """Function that verifies the validity of a template.
+        
+        Parameters
+        ----------
+        template_name : str
+            The name of the template file to be added. 
+
+        Returns
+        -------
+        template_name: str
+            Returns the name of the template if exceptions are not raised.
+
+        Raises
+        ------
+        TypeError
+            Raises if template name is not a string or does not end in ".pptx".
+        """
         if not isinstance(template_name, str):
-            raise TypeError(
-                f"'{template_name}' is not a valid template file."
-            )
+            raise TypeError(f"'{template_name}' is not a valid template file.")
 
         if not template_name.endswith(".pptx"):
             raise TypeError(
@@ -30,6 +58,35 @@ class Thinkcell(object):
 
     @staticmethod
     def transform_input(data_element):
+        """Transforms a `data element` into an object like {"type": data element}.
+        
+        Parameters
+        ----------
+        data_element : str, int, float, datetime
+            A data element can be a string, int, float or datetime. 
+        
+        Returns
+        -------
+        dict
+            Returns an object of type {"type": input}
+
+        Raises
+        ------
+        ValueError
+            Raises if object is not of type int, float, str, or datetime. 
+
+        Examples
+        --------
+        For a float or int, the dict will have "number" as key. 
+
+        >>> print(Thinkcell.transform_input(5))
+        {"number": 5}
+
+        For a str input, the dict will have a "string" as key.
+
+        >>> print(Thinkcell.transform_input("test"))
+        {"string": "test"}
+        """
 
         if isinstance(data_element, datetime):
             return {"date": data_element.strftime("%Y-%m-%d")}
@@ -46,10 +103,39 @@ class Thinkcell(object):
             )
 
     def add_template(self, template_name):
+        """Adds a template to the Thinkcell object.
+        
+        Parameters
+        ----------
+        template_name : str
+            The name of the template to be added. 
+        """
         self.verify_template(template_name)
         self.charts.append({"template": template_name, "data": []})
 
     def add_chart(self, template_name, chart_name, categories, data):
+        """Adds a chart to the template object. 
+        
+        Parameters
+        ----------
+        template_name : str
+            The name of the template where the chart will be added
+        chart_name : str
+            The name of the chart in the specified template
+        categories : list
+            A list containing the header of the chart. Headers can 
+            be categories, years, companies, etc.
+        data : list
+            A list of lists. Each list contains the row of data to be added. Be
+            aware that the first element of each of these lists should be a 
+            category as well. 
+
+        Raises
+        ------
+        ValueError
+            If template does not exist, if the length of the categories does not
+            make sense reltively to the header data. 
+        """
         available_templates = [page["template"] for page in self.charts]
 
         if template_name not in available_templates:
@@ -59,7 +145,8 @@ class Thinkcell(object):
 
         if not isinstance(chart_name, str):
             warnings.warn(
-                f"Your chart name is not a string, we will convert it into one. But wanted to make sure you were aware."
+                f"Your chart name is not a string, we will convert it into one. But wanted to make sure you were aware.",
+                UserWarning,
             )
 
         for data_list in data:
@@ -85,10 +172,21 @@ class Thinkcell(object):
                 page["data"].append(chart_dict)
 
     def save_ppttc(self, filename):
+        """Saves the Thinkcell object as a `.ppttc` file.
+        
+        Parameters
+        ----------
+        filename : str
+            The name of the file to be saved.
+
+        Raises
+        ------
+        ValueError
+            If the filename specified is not a string or does 
+            not end in `.ppttc`.
+        """
         if not isinstance(filename, str):
-            raise ValueError(
-                f"A filename is normally a string, yours is not."
-            )
+            raise ValueError(f"A filename is normally a string, yours is not.")
 
         if not filename.endswith(".ppttc"):
             raise ValueError(
