@@ -9,7 +9,7 @@ In order to use it you will need a valid and working [think-cell license and ins
 
 thinkcell is available on PyPi. 
 
-```console
+```sh
  $ pip install thinkcell
  ```
 
@@ -56,13 +56,13 @@ Start by forking this repo.
 
 Install the development dependencies (you probably want to do this in a [virtual environment](https://docs.python-guide.org/dev/virtualenvs/)):
 
-```console
+```shell
  $ pip install -r requirements-dev.txt
  ```
 
 Make sure the tests run:
 
-```console
+```shell
  $ pytest
  ```
 
