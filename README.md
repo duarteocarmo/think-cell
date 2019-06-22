@@ -15,7 +15,7 @@ thinkcell is available on PyPi.
 
 ### Tutorial and Usage
 
-Let us say you have generated a template `template.pptx` according to [think-cell's automation guidelines](https://www.think-cell.com/en/support/manual/jsondataautomation.shtml) called `simple-template.pptx` with the following chart called `Chart1`: 
+Let us say you have generated a template according to [think-cell's automation guidelines](https://www.think-cell.com/en/support/manual/jsondataautomation.shtml) called `simple-template.pptx` with the following chart called `Chart1`: 
 
 <img src="https://raw.githubusercontent.com/duarteocarmo/think-cell/master/assets/example.png" width="500">
 
