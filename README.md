@@ -13,7 +13,7 @@ thinkcell is available on PyPi.
  $ pip install thinkcell
  ```
 
-### Tutorial and Usage
+### Tutorial and usage
 
 Let us say you have generated a template according to [think-cell's automation guidelines](https://www.think-cell.com/en/support/manual/jsondataautomation.shtml) called `simple-template.pptx` with the following chart called `Chart1`: 
 
