@@ -1,7 +1,7 @@
-# thinkcell <img src="https://raw.githubusercontent.com/duarteocarmo/think-cell/master/assets/logo.png" width="30">
+# thinkcell 📊
 [![Build Status](https://travis-ci.org/duarteocarmo/think-cell.svg?branch=master)](https://travis-ci.org/duarteocarmo/think-cell) [![Coverage Status](https://coveralls.io/repos/github/duarteocarmo/think-cell/badge.svg?branch=master&service=github)](https://coveralls.io/github/duarteocarmo/think-cell?branch=master) [![PyPI version shields.io](https://img.shields.io/pypi/v/thinkcell.svg)](https://pypi.python.org/pypi/thinkcell/) [![Supported Python versions](https://img.shields.io/pypi/pyversions/thinkcell.svg)](https://pypi.org/project/thinkcell/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black) [![PyPI downloads](https://img.shields.io/pypi/dm/thinkcell.svg)](https://pypistats.org/packages/thinkcell) [![GitHub license](https://img.shields.io/github/license/duarteocarmo/think-cell.svg)](https://github.com/duarteocarmo/think-cell/blob/master/LICENSE) 
 
-thinkcell is a simple python library that helps you generate presentations in a quick and automated way. 
+thinkcell is a simple unofficial python library that helps you generate presentations in a quick and automated way. 
 
 In order to use it you will need a valid and working [think-cell license and installation](https://www.think-cell.com/en/). 
 
@@ -19,7 +19,7 @@ Let us say you have generated a template according to [think-cell's automation g
 
 <img src="https://raw.githubusercontent.com/duarteocarmo/think-cell/master/assets/example.png" width="500">
 
-The thinkcell library helps you generate a `.pptc` file so that you can generate presentations based on that template using python:
+The thinkcell library helps you generate a `.ppttc` file so that you can generate presentations based on that template using python:
 
 ```python
 from thinkcell import Thinkcell
@@ -43,7 +43,7 @@ tc.add_chart(
 tc.save_ppttc(filename=filename)
  ```
 
-Once done, go ahead and double click the generated `simple-example.pptc` file, and your chart will open. Save it and you are done!
+Once done, go ahead and double click the generated `simple-example.ppttc` file, and your chart will open. Save it and you are done!
 
 Visit the [examples folder](examples) for more examples and source files. 
 
@@ -73,3 +73,8 @@ Then you can create a branch and submit a pull request.
 - [ ] Handle duplicate template names.
 - [ ] Produce documentation.
 - [ ] Pandas dataframe support.
+
+
+
+*Note: This project is in now way affiliated with think-cell Sales GmbH & Co. KG. I just wanted to make my (and hopefully your) life easier.*
+
