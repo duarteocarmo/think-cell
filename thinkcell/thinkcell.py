@@ -167,9 +167,8 @@ class Thinkcell(object):
                 [self.transform_input(el) for el in data_list]
             )
 
-        for page in self.charts:
-            if page["template"] == template_name:
-                page["data"].append(chart_dict)
+        if self.charts[-1]["template"] == template_name:
+            self.charts[-1]["data"].append(chart_dict)
 
     def add_textfield(self, template_name, field_name, text):
         """Adds a text field to the template object.
@@ -206,9 +205,8 @@ class Thinkcell(object):
         field_text = [self.transform_input(text)]
         field_dict["table"] = [field_text]
 
-        for page in self.charts:
-            if page["template"] == template_name:
-                page["data"].append(field_dict)
+        if self.charts[-1]["template"] == template_name:
+            self.charts[-1]["data"].append(field_dict)
 
     def save_ppttc(self, filename):
         """Saves the Thinkcell object as a `.ppttc` file.

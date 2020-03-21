@@ -75,7 +75,7 @@ Then you can create a branch and submit a pull request.
 
 ### To-dos
 - [x] Create docstrings.
-- [ ] Handle duplicate template names.
+- [x] Handle duplicate template names.
 - [ ] Produce documentation.
 - [ ] Pandas dataframe support.
 
