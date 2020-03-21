@@ -39,17 +39,9 @@ chart_4 = {
     )
 }
 
-chart_5 = {
-    "chart_name": "Chart5",
-    "dataframe": pd.DataFrame(
-        columns=["Metric", 2017, 2018, 2019],
-        data=[["Expenses", 10, 10, 50], ["Revenues", 1, 1, 40]],
-    )
-}
-
 charts = [chart_1, chart_2, chart_3]
 
-template_name = "complex-template.pptx"
+template_name = "complex-template-text-field.pptx"
 filename = "complex-example-with-multiple-slides.ppttc"
 tc = Thinkcell()
 tc.add_template(template_name)
@@ -60,7 +52,7 @@ for chart in charts:
         chart_name=chart["chart_name"],
         dataframe=chart["dataframe"],
     )
-tc.add_textfield(template_name=template_name, field_name="chart_caption", text="First instance")
+tc.add_textfield(template_name=template_name, field_name="chart_text", text="First instance")
 
 charts = [chart_1, chart_2, chart_4]
 tc.add_template(template_name)
@@ -71,6 +63,6 @@ for chart in charts:
         chart_name=chart["chart_name"],
         dataframe=chart["dataframe"],
     )
-tc.add_textfield(template_name=template_name, field_name="chart_caption", text="Second instance")
+tc.add_textfield(template_name=template_name, field_name="chart_text", text="Second instance")
 
 tc.save_ppttc(filename=filename)
