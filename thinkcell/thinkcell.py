@@ -195,13 +195,15 @@ class Thinkcell(object):
             data = dataframe.values.tolist()
             assert isinstance(data, list)
         except (AttributeError, AssertionError):
-            raise DataFrameError('You did not pass a valid Pandas DataFrame')
+            raise DataFrameError("You did not pass a valid Pandas DataFrame")
 
         try:
             assert len(categories) > 1
             assert len(data)
         except AssertionError:
-            raise DataFrameError('The DataFrame you passed does not contain data')
+            raise DataFrameError(
+                "The DataFrame you passed does not contain data"
+            )
 
         self.add_chart(template_name, chart_name, categories, data)
 
