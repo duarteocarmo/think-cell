@@ -33,6 +33,11 @@ data = [["Amazon", 1, 11, 14], ["Slack", 8, 2, 15], ["Ford", 1, 2, 12]]
 
 tc = Thinkcell() # create thinkcell object
 tc.add_template(template_name) # add your template
+tc.add_textfield(
+    template_name=template_name,
+    field_name=field_name,
+    text=text,
+) # add your text field
 tc.add_chart(
     template_name=template_name,
     chart_name=chart_name,
