@@ -171,6 +171,45 @@ class Thinkcell(object):
             if page["template"] == template_name:
                 page["data"].append(chart_dict)
 
+    def add_textfield(self, template_name, field_name, text):
+        """Adds a text field to the template object.
+
+        Parameters
+        ----------
+        template_name : str
+            The name of the template where the text field will be added
+        field_name : str
+            The name of the text field in the specified template
+        text : str
+            A string containing the text
+
+        Raises
+        ------
+        ValueError
+            If template does not exist
+        """
+        available_templates = [page["template"] for page in self.charts]
+
+        if template_name not in available_templates:
+            raise ValueError(
+                f"{template_name} does not exist, please create one first."
+            )
+
+        if not isinstance(field_name, str):
+            warnings.warn(
+                f"Your field name is not a string, we will convert it into one. But wanted to make sure you were aware.",
+                UserWarning,
+            )
+
+        field_dict = {}
+        field_dict["name"] = str(field_name)
+        field_text = [self.transform_input(text)]
+        field_dict["table"] = [field_text]
+
+        for page in self.charts:
+            if page["template"] == template_name:
+                page["data"].append(field_dict)
+
     def save_ppttc(self, filename):
         """Saves the Thinkcell object as a `.ppttc` file.
         
