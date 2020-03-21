@@ -10,7 +10,7 @@ class DataFrameError(Exception):
 
 class Thinkcell(object):
     """The Thinkcell object base class. 
-    
+
     Attributes
     ----------
     charts : list
@@ -63,12 +63,12 @@ class Thinkcell(object):
     @staticmethod
     def transform_input(data_element):
         """Transforms a `data element` into an object like {"type": data element}.
-        
+
         Parameters
         ----------
         data_element : str, int, float, datetime
             A data element can be a string, int, float or datetime. 
-        
+
         Returns
         -------
         dict
@@ -107,7 +107,7 @@ class Thinkcell(object):
 
     def add_template(self, template_name):
         """Adds a template to the Thinkcell object.
-        
+
         Parameters
         ----------
         template_name : str
@@ -118,7 +118,7 @@ class Thinkcell(object):
 
     def add_chart(self, template_name, chart_name, categories, data):
         """Adds a chart to the template object. 
-        
+
         Parameters
         ----------
         template_name : str
@@ -169,17 +169,12 @@ class Thinkcell(object):
             chart_dict["table"].append(
                 [self.transform_input(el) for el in data_list]
             )
-        # adds support for a single template
         if self.charts[-1]["template"] == template_name:
             self.charts[-1]["data"].append(chart_dict)
-        else:
-            for page in self.charts:
-                if page["template"] == template_name:
-                    page["data"].append(chart_dict)
 
     def add_chart_from_dataframe(self, template_name, chart_name, dataframe):
         """Adds a chart based on a dataframe to the template object. 
-        
+
         Parameters
         ----------
         template_name : str
@@ -211,22 +206,21 @@ class Thinkcell(object):
         self.add_chart(template_name, chart_name, categories, data)
 
     def add_textfield(self, template_name, field_name, text):
-        """Adds a chart to the template object. 
-        
+        """Adds a text field to the template object.
+
         Parameters
         ----------
         template_name : str
-            The name of the template where the test field will be added
+            The name of the template where the text field will be added
         field_name : str
             The name of the text field in the specified template
         text : str
-            The text of the field
- 
+            A string containing the text
+
         Raises
         ------
         ValueError
-            If template does not exist, if the length of the categories does not
-            make sense reltively to the header data. 
+            If template does not exist
         """
         available_templates = [page["template"] for page in self.charts]
 
@@ -237,7 +231,7 @@ class Thinkcell(object):
 
         if not isinstance(field_name, str):
             warnings.warn(
-                f"Your chart name is not a string, we will convert it into one. But wanted to make sure you were aware.",
+                f"Your field name is not a string, we will convert it into one. But wanted to make sure you were aware.",
                 UserWarning,
             )
 
@@ -246,17 +240,12 @@ class Thinkcell(object):
         field_text = [self.transform_input(text)]
         field_dict["table"] = [field_text]
 
-        # adds support for a single template
         if self.charts[-1]["template"] == template_name:
             self.charts[-1]["data"].append(field_dict)
-        else:
-            for page in self.charts:
-                if page["template"] == template_name:
-                    page["data"].append(field_dict)
 
     def save_ppttc(self, filename):
         """Saves the Thinkcell object as a `.ppttc` file.
-        
+
         Parameters
         ----------
         filename : str

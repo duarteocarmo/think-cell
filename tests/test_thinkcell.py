@@ -62,6 +62,17 @@ class TestThinkcell(object):
                 data=[[3, 4, datetime(2012, 9, 16, 0, 0)], [2, "adokf", 6]],
             )
 
+    def test_add_textfield_warning(self):
+        tc = Thinkcell()
+        template_name = "template.pptx"
+        tc.add_template(template_name)
+        with pytest.warns(UserWarning) as record:
+            tc.add_textfield(
+                template_name=template_name,
+                field_name=234,
+                text="A great slide",
+            )
+
     def test_add_chart_bad_template(self):
         tc = Thinkcell()
         template = "example.pptx"
@@ -71,6 +82,16 @@ class TestThinkcell(object):
                 chart_name="Cool Name bro",
                 categories=["Alpha", "bravo"],
                 data=[[3, 4, datetime(2012, 9, 16, 0, 0)], [2, "adokf", 6]],
+            )
+
+    def test_add_textfield_bad_template(self):
+        tc = Thinkcell()
+        template = "example.pptx"
+        with pytest.raises(ValueError) as e_info:
+            tc.add_textfield(
+                template_name="example2.pptx",
+                field_name="Title",
+                text="A great slide",
             )
 
     def test_add_chart_bad_dimensions(self):
@@ -136,30 +157,30 @@ class TestThinkcell(object):
         )
         assert tc.charts == [
             {
-                'template': 'example.pptx',
-                'data': [
+                "template": "example.pptx",
+                "data": [
                     {
-                        'name': 'Cool Chart',
-                        'table': [
-                            [None, {'string': 'Employees'}, {'string': 'Revenue'}, {'string': 'Other'}],
+                        "name": "Cool Chart",
+                        "table": [
+                            [None, {"string": "Employees"}, {"string": "Revenue"}, {"string": "Other"}],
                             [],
                             [
-                                {'string': 'Apple'},
-                                {'number': 200},
-                                {'number': 1.5},
-                                {'number': 10},
+                                {"string": "Apple"},
+                                {"number": 200},
+                                {"number": 1.5},
+                                {"number": 10},
                             ],
                             [
-                                {'string': 'Amazon'},
-                                {'number': 100},
-                                {'number': 1.0},
-                                {'number': 12},
+                                {"string": "Amazon"},
+                                {"number": 100},
+                                {"number": 1.0},
+                                {"number": 12},
                             ],
                             [
-                                {'string': 'Slack'},
-                                {'number': 50},
-                                {'number': 0.5},
-                                {'number': 16},
+                                {"string": "Slack"},
+                                {"number": 50},
+                                {"number": 0.5},
+                                {"number": 16},
                             ],
                         ],
                     },
@@ -221,6 +242,31 @@ class TestThinkcell(object):
                 chart_name="Cool Chart",
                 dataframe=dataframe,
             )
+
+    def test_add_textfield(self):
+        tc = Thinkcell()
+        template = "example.pptx"
+        tc.add_template(template)
+        tc.add_textfield(
+            template_name=template,
+            field_name="Title",
+            text="A great slide",
+        )
+        assert tc.charts == [
+            {
+                "template": "example.pptx",
+                "data": [
+                    {
+                        "name": "Title",
+                        "table": [
+                            [
+                                {"string": "A great slide"},
+                            ],
+                        ],
+                    }
+                ],
+            }
+        ]
 
     @pytest.mark.parametrize(
         "input, output", [("word.docx", ValueError), (3, ValueError)]

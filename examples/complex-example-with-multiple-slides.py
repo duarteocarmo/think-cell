@@ -6,8 +6,8 @@ from thinkcell import Thinkcell
 chart_1 = {
     "chart_name": "Chart1",
     "dataframe": pd.DataFrame(
-        columns=["Company", "Employees", "Revenue", "Other"],
-        data=[["Apple", 200, 1.5, 10], ["Amazon", 100, 1.0, 12], ["Slack", 50, 0.5, 16]],
+        columns=["Company", "Ads", "Revenue", "Losses"],
+        data=[["Amazon", 1, 11, 14], ["Slack", 8, 2, 15], ["Ford", 1, 2, 12]],
     )
 }
 
@@ -60,7 +60,7 @@ for chart in charts:
         chart_name=chart["chart_name"],
         dataframe=chart["dataframe"],
     )
-tc.add_textfield(template_name=template_name,field_name="chart_text",text="first instance")
+tc.add_textfield(template_name=template_name, field_name="chart_caption", text="First instance")
 
 charts = [chart_1, chart_2, chart_4]
 tc.add_template(template_name)
@@ -71,6 +71,6 @@ for chart in charts:
         chart_name=chart["chart_name"],
         dataframe=chart["dataframe"],
     )
-tc.add_textfield(template_name=template_name,field_name="chart_text",text="second instance")
+tc.add_textfield(template_name=template_name, field_name="chart_caption", text="Second instance")
 
 tc.save_ppttc(filename=filename)

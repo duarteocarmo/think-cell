@@ -27,12 +27,19 @@ from thinkcell import Thinkcell
 template_name = "simple-template.pptx"
 categories = ["Ads", "Revenue", "Losses"]
 chart_name = "Chart1"
+field_name = "chart_caption"
+text = "Some relevant KPIs"
 filename = "simple-example.ppttc"
 
 data = [["Amazon", 1, 11, 14], ["Slack", 8, 2, 15], ["Ford", 1, 2, 12]]
 
 tc = Thinkcell() # create thinkcell object
 tc.add_template(template_name) # add your template
+tc.add_textfield(
+    template_name=template_name,
+    field_name=field_name,
+    text=text,
+) # add your text field
 tc.add_chart(
     template_name=template_name,
     chart_name=chart_name,
@@ -44,6 +51,30 @@ tc.save_ppttc(filename=filename)
  ```
 
 Once done, go ahead and double click the generated `simple-example.ppttc` file, and your chart will open. Save it and you are done!
+
+You can also derive your chart from a Pandas dataframe:
+
+```python
+from thinkcell import Thinkcell
+
+template_name = "simple-template.pptx"
+chart_name = "Chart1"
+filename = "simple-example.ppttc"
+dataframe = pd.DataFrame(
+    columns=["Company", "Ads", "Revenue", "Losses"],
+    data=[["Amazon", 1, 11, 14], ["Slack", 8, 2, 15], ["Ford", 1, 2, 12]],
+)
+
+tc = Thinkcell() # create thinkcell object
+tc.add_template(template_name) # add your template
+tc.add_chart_from_dataframe(
+    template_name=template_name,
+    chart_name=chart_name,
+    dataframe=dataframe,
+) # add your dataframe
+
+tc.save_ppttc(filename=filename)
+ ```
 
 Visit the [examples folder](examples) for more examples and source files. 
 
@@ -70,9 +101,9 @@ Then you can create a branch and submit a pull request.
 
 ### To-dos
 - [x] Create docstrings.
-- [ ] Handle duplicate template names.
+- [x] Handle duplicate template names.
 - [ ] Produce documentation.
-- [ ] Pandas dataframe support.
+- [x] Pandas dataframe support.
 
 
 
