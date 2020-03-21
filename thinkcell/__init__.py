@@ -1,1 +1,1 @@
-from thinkcell.thinkcell import Thinkcell
+from thinkcell.thinkcell import Thinkcell, DataFrameError
