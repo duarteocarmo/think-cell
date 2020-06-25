@@ -107,5 +107,5 @@ Then you can create a branch and submit a pull request.
 
 
 
-*Note: This project is in now way affiliated with think-cell Sales GmbH & Co. KG. I just wanted to make my (and hopefully your) life easier.*
+*Note: This project is in no way affiliated with think-cell Sales GmbH & Co. KG. I just wanted to make my (and hopefully your) life easier.*
 
