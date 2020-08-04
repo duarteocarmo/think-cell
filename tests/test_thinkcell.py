@@ -141,6 +141,41 @@ class TestThinkcell(object):
                 ],
             }
         ]
+    def test_add_chart_with_fill(self):
+        tc = Thinkcell()
+        template = "example.pptx"
+        tc.add_template(template)
+        tc.add_chart(
+            template_name=template,
+            chart_name="Cool Name bro",
+            categories=["Alpha", "bravo"],
+            data=[[3, 4, datetime(2012, 9, 16, 0, 0)], [2, "adokf", 4]],
+            fill=["#70AD47", "#ED7D31"]
+        )
+        assert tc.charts == [
+            {
+                "template": "example.pptx",
+                "data": [
+                    {
+                        "name": "Cool Name bro",
+                        "table": [
+                            [None, {"string": "Alpha"}, {"string": "bravo"}],
+                            [],
+                            [
+                                {"number": 3, "fill": "#70AD47"},
+                                {"number": 4, "fill": "#70AD47"},
+                                {"date": "2012-09-16", "fill": "#70AD47"},
+                            ],
+                            [
+                                {"number": 2, "fill": "#ED7D31"},
+                                {"string": "adokf", "fill": "#ED7D31"},
+                                {"number": 4, "fill": "#ED7D31"},
+                            ],
+                        ],
+                    }
+                ],
+            }
+        ]
 
     def test_add_chart_from_dataframe(self):
         tc = Thinkcell()
@@ -181,6 +216,53 @@ class TestThinkcell(object):
                                 {"number": 50},
                                 {"number": 0.5},
                                 {"number": 16},
+                            ],
+                        ],
+                    },
+                ],
+            },
+        ]
+
+    def test_add_chart_from_dataframe_with_fill(self):
+        tc = Thinkcell()
+        template = "example.pptx"
+        dataframe = pd.DataFrame(
+            columns=["Company", "Employees", "Revenue", "Other"],
+            data=[["Apple", 200, 1.5, 10], ["Amazon", 100, 1.0, 12], ["Slack", 50, 0.5, 16]],
+        )
+        tc.add_template(template)
+        tc.add_chart_from_dataframe(
+            template_name=template,
+            chart_name="Cool Chart",
+            dataframe=dataframe,
+            fill=["#70AD47", "#ED7D31", "#4472C4"]
+        )
+        assert tc.charts == [
+            {
+                "template": "example.pptx",
+                "data": [
+                    {
+                        "name": "Cool Chart",
+                        "table": [
+                            [None, {"string": "Employees"}, {"string": "Revenue"}, {"string": "Other"}],
+                            [],
+                            [
+                                {"string": "Apple", "fill": "#70AD47"},
+                                {"number": 200, "fill": "#70AD47"},
+                                {"number": 1.5, "fill": "#70AD47"},
+                                {"number": 10, "fill": "#70AD47"},
+                            ],
+                            [
+                                {"string": "Amazon", "fill": "#ED7D31"},
+                                {"number": 100, "fill": "#ED7D31"},
+                                {"number": 1.0, "fill": "#ED7D31"},
+                                {"number": 12, "fill": "#ED7D31"},
+                            ],
+                            [
+                                {"string": "Slack", "fill": "#4472C4"},
+                                {"number": 50, "fill": "#4472C4"},
+                                {"number": 0.5, "fill": "#4472C4"},
+                                {"number": 16, "fill": "#4472C4"},
                             ],
                         ],
                     },

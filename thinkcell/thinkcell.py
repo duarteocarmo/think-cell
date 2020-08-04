@@ -61,13 +61,16 @@ class Thinkcell(object):
             return template_name
 
     @staticmethod
-    def transform_input(data_element):
+    def transform_input(data_element, color=None):
         """Transforms a `data element` into an object like {"type": data element}.
 
         Parameters
         ----------
         data_element : str, int, float, datetime
             A data element can be a string, int, float or datetime. 
+        color : str
+            The hex or rgb string for the element color. If None, then 
+            no fill will be included. 
 
         Returns
         -------
@@ -92,14 +95,18 @@ class Thinkcell(object):
         {"string": "test"}
         """
 
+        fill = {}
+        if color is not None:
+            fill = {"fill": color}
+
         if isinstance(data_element, datetime):
-            return {"date": data_element.strftime("%Y-%m-%d")}
+            return {"date": data_element.strftime("%Y-%m-%d"), **fill}
 
         if isinstance(data_element, str):
-            return {"string": data_element}
+            return {"string": data_element, **fill}
 
         if isinstance(data_element, (int, float)):
-            return {"number": data_element}
+            return {"number": data_element, **fill}
         else:
             raise ValueError(
                 f"{data_element} of type {type(data_element)} is not acceptable."
@@ -116,7 +123,7 @@ class Thinkcell(object):
         self.verify_template(template_name)
         self.charts.append({"template": template_name, "data": []})
 
-    def add_chart(self, template_name, chart_name, categories, data):
+    def add_chart(self, template_name, chart_name, categories, data, fill=None):
         """Adds a chart to the template object. 
 
         Parameters
@@ -132,6 +139,10 @@ class Thinkcell(object):
             A list of lists. Each list contains the row of data to be added. Be
             aware that the first element of each of these lists should be a 
             category as well.
+        fill : list
+            A list containing strings of either the hex or rgb values for fill
+            for each series. Must match the length of the series. Can specify None
+            to use no fill.
 
         Raises
         ------
@@ -157,6 +168,13 @@ class Thinkcell(object):
                 raise ValueError(
                     f"Your categories should be the equal to the length of your data lists - 1. Your data element {data_list} is of size {len(data_list)} but should be of size {len(categories) + 1}."
                 )
+        if fill is not None and len(fill) != len(data):
+            raise ValueError(
+                f"Your fill colors should be the equal to the length of your data (the number of series). Your fill element {fill} is of size {len(fill)} but should be of size {len(data)}."
+            )
+
+        if fill is None:
+            fill = [None for _ in data]
 
         chart_dict = {}
         chart_dict["name"] = str(chart_name)
@@ -165,14 +183,14 @@ class Thinkcell(object):
         ]
         chart_dict["table"] = [chart_categories, []]
 
-        for data_list in data:
+        for data_list, color in zip(data, fill):
             chart_dict["table"].append(
-                [self.transform_input(el) for el in data_list]
+                [self.transform_input(el, color) for el in data_list]
             )
         if self.charts[-1]["template"] == template_name:
             self.charts[-1]["data"].append(chart_dict)
 
-    def add_chart_from_dataframe(self, template_name, chart_name, dataframe):
+    def add_chart_from_dataframe(self, template_name, chart_name, dataframe, fill=None):
         """Adds a chart based on a dataframe to the template object. 
 
         Parameters
@@ -183,6 +201,9 @@ class Thinkcell(object):
             The name of the chart in the specified template
         dataframe : pandas.DataFrame
             A dictionary of Pandas dataframes
+        fill : list
+            A list of strings the length of the number of series for specifying
+            the fill colors with the hex or rgb
 
         Raises
         ------
@@ -205,7 +226,7 @@ class Thinkcell(object):
                 "The DataFrame you passed does not contain data"
             )
 
-        self.add_chart(template_name, chart_name, categories, data)
+        self.add_chart(template_name, chart_name, categories, data, fill=fill)
 
     def add_textfield(self, template_name, field_name, text):
         """Adds a text field to the template object.
