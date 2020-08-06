@@ -123,7 +123,9 @@ class Thinkcell(object):
         self.verify_template(template_name)
         self.charts.append({"template": template_name, "data": []})
 
-    def add_chart(self, template_name, chart_name, categories, data, fill=None):
+    def add_chart(
+        self, template_name, chart_name, categories, data, fill=None
+    ):
         """Adds a chart to the template object. 
 
         Parameters
@@ -190,7 +192,9 @@ class Thinkcell(object):
         if self.charts[-1]["template"] == template_name:
             self.charts[-1]["data"].append(chart_dict)
 
-    def add_chart_from_dataframe(self, template_name, chart_name, dataframe, fill=None):
+    def add_chart_from_dataframe(
+        self, template_name, chart_name, dataframe, fill=None
+    ):
         """Adds a chart based on a dataframe to the template object. 
 
         Parameters
