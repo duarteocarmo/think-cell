@@ -141,6 +141,7 @@ class TestThinkcell(object):
                 ],
             }
         ]
+
     def test_add_chart_with_fill(self):
         tc = Thinkcell()
         template = "example.pptx"
@@ -150,7 +151,7 @@ class TestThinkcell(object):
             chart_name="Cool Name bro",
             categories=["Alpha", "bravo"],
             data=[[3, 4, datetime(2012, 9, 16, 0, 0)], [2, "adokf", 4]],
-            fill=["#70AD47", "#ED7D31"]
+            fill=["#70AD47", "#ED7D31"],
         )
         assert tc.charts == [
             {
@@ -182,7 +183,11 @@ class TestThinkcell(object):
         template = "example.pptx"
         dataframe = pd.DataFrame(
             columns=["Company", "Employees", "Revenue", "Other"],
-            data=[["Apple", 200, 1.5, 10], ["Amazon", 100, 1.0, 12], ["Slack", 50, 0.5, 16]],
+            data=[
+                ["Apple", 200, 1.5, 10],
+                ["Amazon", 100, 1.0, 12],
+                ["Slack", 50, 0.5, 16],
+            ],
         )
         tc.add_template(template)
         tc.add_chart_from_dataframe(
@@ -197,7 +202,12 @@ class TestThinkcell(object):
                     {
                         "name": "Cool Chart",
                         "table": [
-                            [None, {"string": "Employees"}, {"string": "Revenue"}, {"string": "Other"}],
+                            [
+                                None,
+                                {"string": "Employees"},
+                                {"string": "Revenue"},
+                                {"string": "Other"},
+                            ],
                             [],
                             [
                                 {"string": "Apple"},
@@ -218,9 +228,9 @@ class TestThinkcell(object):
                                 {"number": 16},
                             ],
                         ],
-                    },
+                    }
                 ],
-            },
+            }
         ]
 
     def test_add_chart_from_dataframe_with_fill(self):
@@ -228,14 +238,18 @@ class TestThinkcell(object):
         template = "example.pptx"
         dataframe = pd.DataFrame(
             columns=["Company", "Employees", "Revenue", "Other"],
-            data=[["Apple", 200, 1.5, 10], ["Amazon", 100, 1.0, 12], ["Slack", 50, 0.5, 16]],
+            data=[
+                ["Apple", 200, 1.5, 10],
+                ["Amazon", 100, 1.0, 12],
+                ["Slack", 50, 0.5, 16],
+            ],
         )
         tc.add_template(template)
         tc.add_chart_from_dataframe(
             template_name=template,
             chart_name="Cool Chart",
             dataframe=dataframe,
-            fill=["#70AD47", "#ED7D31", "#4472C4"]
+            fill=["#70AD47", "#ED7D31", "#4472C4"],
         )
         assert tc.charts == [
             {
@@ -244,7 +258,12 @@ class TestThinkcell(object):
                     {
                         "name": "Cool Chart",
                         "table": [
-                            [None, {"string": "Employees"}, {"string": "Revenue"}, {"string": "Other"}],
+                            [
+                                None,
+                                {"string": "Employees"},
+                                {"string": "Revenue"},
+                                {"string": "Other"},
+                            ],
                             [],
                             [
                                 {"string": "Apple", "fill": "#70AD47"},
@@ -265,15 +284,19 @@ class TestThinkcell(object):
                                 {"number": 16, "fill": "#4472C4"},
                             ],
                         ],
-                    },
+                    }
                 ],
-            },
+            }
         ]
 
     def test_add_chart_from_dataframe_invalid_dataframe(self):
         tc = Thinkcell()
         template = "example.pptx"
-        dataframe = [["Apple", 200, 1.5, 10], ["Amazon", 100, 1.0, 12], ["Slack", 50, 0.5, 16]]
+        dataframe = [
+            ["Apple", 200, 1.5, 10],
+            ["Amazon", 100, 1.0, 12],
+            ["Slack", 50, 0.5, 16],
+        ]
         tc.add_template(template)
         with pytest.raises(DataFrameError) as e_info:
             tc.add_chart_from_dataframe(
@@ -286,7 +309,11 @@ class TestThinkcell(object):
         tc = Thinkcell()
         template = "example.pptx"
         dataframe = pd.Series(
-            data=[["Apple", 200, 1.5, 10], ["Amazon", 100, 1.0, 12], ["Slack", 50, 0.5, 16]],
+            data=[
+                ["Apple", 200, 1.5, 10],
+                ["Amazon", 100, 1.0, 12],
+                ["Slack", 50, 0.5, 16],
+            ]
         )
         tc.add_template(template)
         with pytest.raises(DataFrameError) as e_info:
@@ -300,8 +327,7 @@ class TestThinkcell(object):
         tc = Thinkcell()
         template = "example.pptx"
         dataframe = pd.DataFrame(
-            columns=["Company"],
-            data=[["Apple"], ["Amazon"], ["Slack"]],
+            columns=["Company"], data=[["Apple"], ["Amazon"], ["Slack"]]
         )
         tc.add_template(template)
         with pytest.raises(DataFrameError) as e_info:
@@ -315,7 +341,7 @@ class TestThinkcell(object):
         tc = Thinkcell()
         template = "example.pptx"
         dataframe = pd.DataFrame(
-            columns=["Company", "Employees", "Revenue", "Other"],
+            columns=["Company", "Employees", "Revenue", "Other"]
         )
         tc.add_template(template)
         with pytest.raises(DataFrameError) as e_info:
@@ -330,22 +356,13 @@ class TestThinkcell(object):
         template = "example.pptx"
         tc.add_template(template)
         tc.add_textfield(
-            template_name=template,
-            field_name="Title",
-            text="A great slide",
+            template_name=template, field_name="Title", text="A great slide"
         )
         assert tc.charts == [
             {
                 "template": "example.pptx",
                 "data": [
-                    {
-                        "name": "Title",
-                        "table": [
-                            [
-                                {"string": "A great slide"},
-                            ],
-                        ],
-                    }
+                    {"name": "Title", "table": [[{"string": "A great slide"}]]}
                 ],
             }
         ]
