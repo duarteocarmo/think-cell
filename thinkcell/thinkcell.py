@@ -223,7 +223,7 @@ class Thinkcell(object):
             raise DataFrameError("You did not pass a valid Pandas DataFrame")
 
         try:
-            assert len(categories) > 1
+            assert len(categories) >= 1
             assert len(data)
         except AssertionError:
             raise DataFrameError(
