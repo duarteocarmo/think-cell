@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="thinkcell",
-    version="20.3.1",
+    version="21.9",
     author="Duarte O.Carmo",
     author_email="duarteocarmo@gmail.com",
     description="Small utility to automate the generation of think-cell graphs.",
@@ -19,6 +19,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
