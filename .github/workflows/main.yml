@@ -7,46 +7,46 @@ on:
   workflow_dispatch:
   
 jobs:
-  # test:
-  #   runs-on: ${{ matrix.os }}
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest, macos-latest, windows-latest]
-  #       python-version: ['3.6', '3.7', '3.8', '3.8', '3.9']
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v2
-  #       with:
-  #         python-version: ${{ matrix.python-version }}
-  #     - name: Install dev requirements
-  #       run: pip install -r requirements-dev.txt
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.6', '3.7', '3.8', '3.8', '3.9']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dev requirements
+        run: pip install -r requirements-dev.txt
 
-  #     - name: Test with pytest
-  #       run: pytest . 
+      - name: Test with pytest
+        run: pytest . 
   
-  # test-coverage:
-  #   needs: test
-  #   runs-on: ubuntu-latest
+  test-coverage:
+    needs: test
+    runs-on: ubuntu-latest
     
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v2
-  #       with:
-  #         python-version: 3.8
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
     
-  #     - name: Install dev requirements
-  #       run: pip install -r requirements-dev.txt
+      - name: Install dev requirements
+        run: pip install -r requirements-dev.txt
 
-  #     - name: Generate coverage report
-  #       run: pytest . --cov=thinkcell --cov-report=xml
+      - name: Generate coverage report
+        run: pytest . --cov=thinkcell --cov-report=xml
         
-  #     - name: Upload coverage to Codecov
-  #       uses: codecov/codecov-action@v2
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
        
   build-n-publish:
-    # needs: test-coverage
+    needs: test-coverage
     runs-on: ubuntu-latest
     
     steps:
@@ -74,14 +74,14 @@ jobs:
 
       - run: echo "💡 The ${{ github.ref }} repository has been cloned to the runner."
 
-      # - name: Publish distribution to Test PyPI
-      #   uses: pypa/gh-action-pypi-publish@master
-      #   with:
-      #     password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-      #     repository_url: https://test.pypi.org/legacy/
+      - name: Publish distribution to Test PyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
           
       - name: Publish distribution to PyPI
-        if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+        if: startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
