@@ -2,7 +2,10 @@ name: CI
 on:
   push:
     branches: [ master ]
+    tags:
+    - '*'
   workflow_dispatch:
+  
 jobs:
   # test:
   #   runs-on: ${{ matrix.os }}
