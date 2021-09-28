@@ -2,11 +2,9 @@ name: CI
 on:
   push:
     branches: [ master ]
-    
   workflow_dispatch:
-
 jobs:
-  build:
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -18,5 +16,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Display Python version
+      - name: Install dev requirements
         run: pip install -r requirements-dev.txt
+
+      - name: Test with pytest
+        run: pytest . 
