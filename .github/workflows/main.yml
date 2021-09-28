@@ -21,3 +21,24 @@ jobs:
 
       - name: Test with pytest
         run: pytest . 
+  
+  test-coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+    
+      - name: Install dev requirements
+        run: pip install -r requirements-dev.txt
+
+      - name: Generate coverage report
+        run: pytest --cov=./ --cov-report=xml
+        
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+       
