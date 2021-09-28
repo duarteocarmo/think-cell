@@ -43,7 +43,7 @@ jobs:
   #       uses: codecov/codecov-action@v2
        
   build-n-publish:
-    needs: test-coverage
+    # needs: test-coverage
     runs-on: ubuntu-latest
     
     steps:
