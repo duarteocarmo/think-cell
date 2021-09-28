@@ -52,15 +52,18 @@ tc.save_ppttc(filename=filename)
 
 Once done, go ahead and double click the generated `simple-example.ppttc` file, and your chart will open. Save it and you are done!
 
-You can also derive your chart from a Pandas dataframe:
+You can also derive your chart from a Pandas dataframe. 
+
+Make sure you have pandas installed (e.g., `pip install pandas`)
 
 ```python
 from thinkcell import Thinkcell
+import pandas
 
 template_name = "simple-template.pptx"
 chart_name = "Chart1"
 filename = "simple-example.ppttc"
-dataframe = pd.DataFrame(
+dataframe = pandas.DataFrame(
     columns=["Company", "Ads", "Revenue", "Losses"],
     data=[["Amazon", 1, 11, 14], ["Slack", 8, 2, 15], ["Ford", 1, 2, 12]],
 )
